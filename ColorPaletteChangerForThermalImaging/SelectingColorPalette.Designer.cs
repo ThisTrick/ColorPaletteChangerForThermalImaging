@@ -36,7 +36,7 @@
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(66)))), ((int)(((byte)(250)))));
+            this.btnClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Location = new System.Drawing.Point(503, 3);
             this.btnClose.Margin = new System.Windows.Forms.Padding(0);
@@ -72,7 +72,9 @@
             this.MaximumSize = new System.Drawing.Size(550, 550);
             this.MinimumSize = new System.Drawing.Size(550, 550);
             this.Name = "SelectingColorPalette";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SelectingColorPalette";
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SelectingColorPalette_MouseDown);
             this.ResumeLayout(false);
 
         }
