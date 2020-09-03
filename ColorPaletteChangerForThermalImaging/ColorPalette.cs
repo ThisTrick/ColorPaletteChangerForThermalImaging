@@ -36,5 +36,14 @@ namespace ColorPaletteChangerForThermalImaging
             this.label.Font = this.Font;
         }
 
+        private void label_Click(object sender, EventArgs e)
+        {
+            this.OnClick(e);
+        }
+
+        private void pictureBox_Click(object sender, EventArgs e)
+        {
+            this.OnClick(e);
+        }
     }
 }

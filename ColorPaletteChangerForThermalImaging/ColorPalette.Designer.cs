@@ -42,6 +42,7 @@
             this.label.Size = new System.Drawing.Size(60, 24);
             this.label.TabIndex = 0;
             this.label.Text = "label";
+            this.label.Click += new System.EventHandler(this.label_Click);
             // 
             // pictureBox
             // 
@@ -52,6 +53,7 @@
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
+            this.pictureBox.Click += new System.EventHandler(this.pictureBox_Click);
             // 
             // ColorPalette
             // 
