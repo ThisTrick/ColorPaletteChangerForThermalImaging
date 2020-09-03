@@ -42,7 +42,13 @@ namespace ColorPaletteChangerForThermalImaging
         {
             using (SelectingColorPalette selectingColor = new SelectingColorPalette())
             {
-                selectingColor.ShowDialog();
+                var dialogResult = selectingColor.ShowDialog();
+                if (dialogResult == DialogResult.OK)
+                {
+                    var bitmapColorPalette = selectingColor.Tag as Bitmap;
+                    pbColorPalette.Image = bitmapColorPalette ?? pbColorPalette.Image;
+                }
+
             }
         }
 

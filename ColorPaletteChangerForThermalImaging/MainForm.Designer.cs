@@ -62,6 +62,7 @@
             this.pbImage.Margin = new System.Windows.Forms.Padding(12);
             this.pbImage.Name = "pbImage";
             this.pbImage.Size = new System.Drawing.Size(466, 466);
+            this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbImage.TabIndex = 1;
             this.pbImage.TabStop = false;
             // 
@@ -72,6 +73,7 @@
             this.pbColorPalette.Location = new System.Drawing.Point(502, 30);
             this.pbColorPalette.Name = "pbColorPalette";
             this.pbColorPalette.Size = new System.Drawing.Size(45, 430);
+            this.pbColorPalette.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbColorPalette.TabIndex = 2;
             this.pbColorPalette.TabStop = false;
             this.pbColorPalette.Click += new System.EventHandler(this.pbColorPalette_Click);
