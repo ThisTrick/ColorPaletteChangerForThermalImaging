@@ -104,7 +104,8 @@ namespace ColorPaletteChangerForThermalImaging
         private List<Bitmap> GetImages(string path)
         {
             var images = new List<Bitmap>();
-            var fullPath = Path.GetFullPath(path);
+            var appPath = Application.StartupPath;
+            var fullPath = Path.Combine(appPath, path);
             var imgPaths = Directory.GetFiles(fullPath);
 
             foreach (var imgPath in imgPaths)
