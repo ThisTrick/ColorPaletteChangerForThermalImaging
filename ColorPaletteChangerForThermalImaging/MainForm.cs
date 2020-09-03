@@ -31,5 +31,10 @@ namespace ColorPaletteChangerForThermalImaging
         {
 
         }
+
+        private void pbColorPalette_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

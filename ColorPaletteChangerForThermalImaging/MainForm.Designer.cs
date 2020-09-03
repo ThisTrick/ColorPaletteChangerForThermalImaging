@@ -73,6 +73,7 @@
             this.pbColorPalette.Size = new System.Drawing.Size(45, 430);
             this.pbColorPalette.TabIndex = 2;
             this.pbColorPalette.TabStop = false;
+            this.pbColorPalette.Click += new System.EventHandler(this.pbColorPalette_Click);
             // 
             // panel1
             // 
