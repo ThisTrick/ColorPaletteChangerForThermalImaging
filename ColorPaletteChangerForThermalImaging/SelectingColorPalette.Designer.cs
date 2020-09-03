@@ -50,7 +50,8 @@
             // pColorPalettes
             // 
             this.pColorPalettes.AutoScroll = true;
-            this.pColorPalettes.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pColorPalettes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(177)))), ((int)(((byte)(194)))));
+            this.pColorPalettes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pColorPalettes.Location = new System.Drawing.Point(12, 51);
             this.pColorPalettes.Name = "pColorPalettes";
             this.pColorPalettes.Size = new System.Drawing.Size(526, 487);
@@ -60,7 +61,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 33F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(42)))), ((int)(((byte)(86)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(101)))), ((int)(((byte)(132)))));
             this.ClientSize = new System.Drawing.Size(550, 550);
             this.Controls.Add(this.pColorPalettes);
             this.Controls.Add(this.btnClose);
