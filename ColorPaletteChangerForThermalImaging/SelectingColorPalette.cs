@@ -19,6 +19,9 @@ namespace ColorPaletteChangerForThermalImaging
         extern static void ReleaseCapture();
         [DllImport("user32.dll", EntryPoint = "SendMessage")]
         extern static void SendMessage(System.IntPtr hwnd, int wmsg, int wparam, int lparam);
+
+
+        private ColorPalette _selectedPalette;
         public SelectingColorPalette()
         {
             InitializeComponent();
@@ -65,13 +68,13 @@ namespace ColorPaletteChangerForThermalImaging
             var colPalette = new ColorPalette();
             colPalette.ColorPaletteName = img.Tag.ToString();
             colPalette.Image = img;
-
             var newLocation = new Point
                 (
                     colPalette.Width * locationModificator.X,
                     colPalette.Height * locationModificator.Y
                 );
             colPalette.Location = newLocation;
+            colPalette.Click += ColorPalette_Click;
             return colPalette;
         }
 
@@ -89,6 +92,19 @@ namespace ColorPaletteChangerForThermalImaging
             return images;
         }
 
+        private void ColorPalette_Click(object sender, EventArgs e)
+        {
+            if (_selectedPalette != null)
+            {
+                _selectedPalette.BackColor = Color.Transparent;
+            }
+            var clickedPalette = sender as ColorPalette;
+            if (clickedPalette != null)
+            {
+                clickedPalette.BackColor = Color.FromArgb(15, 185, 177);
+                _selectedPalette = clickedPalette;
+            }
+        }
 
     }
 }
