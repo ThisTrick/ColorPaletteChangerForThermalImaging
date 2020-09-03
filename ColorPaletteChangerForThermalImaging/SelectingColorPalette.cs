@@ -79,11 +79,11 @@ namespace ColorPaletteChangerForThermalImaging
         {
             var images = new List<Bitmap>();
             var fullPath = Path.GetFullPath(path);
-            var imgNames = Directory.GetFiles(fullPath);
+            var imgPaths = Directory.GetFiles(fullPath);
 
-            foreach (var imgName in imgNames)
+            foreach (var imgPath in imgPaths)
             {
-                var imgPath = Path.Combine(fullPath, imgName);
+                var imgName = Path.GetFileNameWithoutExtension(imgPath);
                 images.Add(new Bitmap(imgPath) { Tag = imgName});
             }
             return images;
