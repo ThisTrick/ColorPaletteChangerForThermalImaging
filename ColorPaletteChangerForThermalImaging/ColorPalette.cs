@@ -45,5 +45,15 @@ namespace ColorPaletteChangerForThermalImaging
         {
             this.OnClick(e);
         }
+
+        private void label_DoubleClick(object sender, EventArgs e)
+        {
+            this.OnDoubleClick(e);
+        }
+
+        private void pictureBox_DoubleClick(object sender, EventArgs e)
+        {
+            this.OnDoubleClick(e);
+        }
     }
 }

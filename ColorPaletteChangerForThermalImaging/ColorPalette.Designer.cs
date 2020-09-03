@@ -43,6 +43,7 @@
             this.label.TabIndex = 0;
             this.label.Text = "label";
             this.label.Click += new System.EventHandler(this.label_Click);
+            this.label.DoubleClick += new System.EventHandler(this.label_DoubleClick);
             // 
             // pictureBox
             // 
@@ -54,6 +55,7 @@
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             this.pictureBox.Click += new System.EventHandler(this.pictureBox_Click);
+            this.pictureBox.DoubleClick += new System.EventHandler(this.pictureBox_DoubleClick);
             // 
             // ColorPalette
             // 
