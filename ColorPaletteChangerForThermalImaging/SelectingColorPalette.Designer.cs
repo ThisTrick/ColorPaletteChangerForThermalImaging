@@ -74,6 +74,7 @@
             this.Name = "SelectingColorPalette";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SelectingColorPalette";
+            this.Load += new System.EventHandler(this.SelectingColorPalette_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SelectingColorPalette_MouseDown);
             this.ResumeLayout(false);
 

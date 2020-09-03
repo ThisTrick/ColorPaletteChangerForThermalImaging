@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -33,5 +34,61 @@ namespace ColorPaletteChangerForThermalImaging
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
+
+        private void SelectingColorPalette_Load(object sender, EventArgs e)
+        {
+            InitColorPalettes("TestImage");
+        }
+
+        private void InitColorPalettes(string path)
+        {
+            List<ColorPalette> colorPalettes = new List<ColorPalette>();
+
+            var images = GetImages(path);
+            var x = 0;
+            var y = 0;
+            foreach (var img in images)
+            {
+                if (x > 3)
+                {
+                    y++;
+                    x = 0;
+                }
+                colorPalettes.Add(CreateColorPalette(img, new Point(x, y)));
+                x++;
+            }
+            this.pColorPalettes.Controls.AddRange(colorPalettes.ToArray());
+        }
+
+        private ColorPalette CreateColorPalette(Bitmap img, Point locationModificator)
+        {
+            var colPalette = new ColorPalette();
+            colPalette.ColorPaletteName = img.Tag.ToString();
+            colPalette.Image = img;
+
+            var newLocation = new Point
+                (
+                    colPalette.Width * locationModificator.X,
+                    colPalette.Height * locationModificator.Y
+                );
+            colPalette.Location = newLocation;
+            return colPalette;
+        }
+
+        private List<Bitmap> GetImages(string path)
+        {
+            var images = new List<Bitmap>();
+            var fullPath = Path.GetFullPath(path);
+            var imgNames = Directory.GetFiles(fullPath);
+
+            foreach (var imgName in imgNames)
+            {
+                var imgPath = Path.Combine(fullPath, imgName);
+                images.Add(new Bitmap(imgPath) { Tag = imgName});
+            }
+            return images;
+        }
+
+
     }
 }
