@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColorPaletteChangerForThermalImaging.Logic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -31,6 +32,15 @@ namespace ColorPaletteChangerForThermalImaging
         public MainForm()
         {
             InitializeComponent();
+
+            TestColorPaletteCreator();
+        }
+
+        private void TestColorPaletteCreator()
+        {
+            ColorPaletteCreator creator = new ColorPaletteCreator();
+            var img = creator.CreateAndSave("TestImage\\test.png", Color.White, Color.Black);
+            pbColorPalette.Image = img;
         }
 
         private void btnClose_Click(object sender, EventArgs e)
