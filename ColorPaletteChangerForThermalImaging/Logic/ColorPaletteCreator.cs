@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ColorPaletteChangerForThermalImaging.Logic
 {
@@ -35,7 +31,7 @@ namespace ColorPaletteChangerForThermalImaging.Logic
                     graphics.FillRectangle(brush, rectangle);
                 }
             }
-                return img;
+            return img;
         }
         public bool Save(string path, Bitmap imgColorPalette)
         {
@@ -61,7 +57,7 @@ namespace ColorPaletteChangerForThermalImaging.Logic
             }
             else
             {
-                return new Bitmap(imgColorPalette.Width, imgColorPalette.Height) { Tag = false};
+                return new Bitmap(imgColorPalette.Width, imgColorPalette.Height) { Tag = false };
             }
         }
         private float[] CalcPositions(int length)

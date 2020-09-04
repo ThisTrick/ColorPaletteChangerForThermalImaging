@@ -32,15 +32,16 @@ namespace ColorPaletteChangerForThermalImaging
         public MainForm()
         {
             InitializeComponent();
-
-            TestColorPaletteCreator();
         }
 
         private void TestColorPaletteCreator()
         {
             ColorPaletteCreator creator = new ColorPaletteCreator();
-            var img = creator.CreateAndSave("TestImage\\test.png", Color.White, Color.Black);
-            pbColorPalette.Image = img;
+            var colorPalette = creator.CreateAndSave("TestImage\\test.png", Color.White, Color.Black);
+            pbColorPalette.Image = colorPalette;
+            ColorPaletteEditor editor = new ColorPaletteEditor();
+            var img = new Bitmap("testImage\\testImg1.png");
+            pbImage.Image = editor.Edit(img, colorPalette);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
