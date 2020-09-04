@@ -23,19 +23,17 @@ namespace ColorPaletteChangerForThermalImaging
         #endregion
 
         Bitmap LoadedImg;
+        Bitmap ColorPalette;
+        ColorPaletteEditor Editor;
+        
         public MainForm()
         {
             InitializeComponent();
         }
 
-        private void TestColorPaletteCreator()
+        private void MainForm_Load(object sender, EventArgs e)
         {
-            ColorPaletteCreator creator = new ColorPaletteCreator();
-            var colorPalette = creator.CreateAndSave("TestImage\\test.png", Color.White, Color.Black);
-            pbColorPalette.Image = colorPalette;
-            ColorPaletteEditor editor = new ColorPaletteEditor();
-            var img = new Bitmap("testImage\\testImg1.png");
-            pbImage.Image = editor.Edit(img, colorPalette);
+            Editor = new ColorPaletteEditor();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -46,6 +44,8 @@ namespace ColorPaletteChangerForThermalImaging
         private void btnLoad_Click(object sender, EventArgs e)
         {
             LoadedImg = ImageLoad(pbImage);
+            var img = Editor.Edit(LoadedImg, ColorPalette);
+            pbImage.Image = img;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -61,9 +61,16 @@ namespace ColorPaletteChangerForThermalImaging
                 if (dialogResult == DialogResult.OK)
                 {
                     var bitmapColorPalette = selectingColor.Tag as Bitmap;
-                    pbColorPalette.Image = bitmapColorPalette ?? pbColorPalette.Image;
+                    if (bitmapColorPalette != null)
+                    {
+                        pbColorPalette.Image = bitmapColorPalette;
+                        ColorPalette = bitmapColorPalette;
+                        if (LoadedImg != null)
+                        {
+                            pbImage.Image = Editor.Edit(LoadedImg, ColorPalette);
+                        }
+                    }
                 }
-
             }
         }
 
@@ -130,5 +137,7 @@ namespace ColorPaletteChangerForThermalImaging
                 }
             }
         }
+
+
     }
 }
