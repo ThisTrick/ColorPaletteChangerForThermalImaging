@@ -22,10 +22,36 @@ namespace ColorPaletteChangerForThermalImaging
 
         #endregion
 
-        Bitmap LoadedImg;
-        Bitmap ColorPalette;
-        ColorPaletteEditor Editor;
-        
+        private Bitmap _colorPalette;
+        private Bitmap _loadedImg;
+        private Bitmap LoadedImg 
+        { 
+            get => _loadedImg;
+            set 
+            {
+                if (value == null && value == _loadedImg)
+                {
+                    return;
+                }
+                _loadedImg = value;
+                pbImage.Image = _loadedImg;
+            }
+        }
+        private Bitmap ColorPalette 
+        {
+            get => _colorPalette;
+            set
+            {
+                if (value == null && value == _colorPalette)
+                {
+                    return;
+                }
+                _colorPalette = value;
+                pbColorPalette.Image = _colorPalette;
+            }
+        }
+        private ColorPaletteEditor Editor;
+
         public MainForm()
         {
             InitializeComponent();
@@ -34,6 +60,7 @@ namespace ColorPaletteChangerForThermalImaging
         private void MainForm_Load(object sender, EventArgs e)
         {
             Editor = new ColorPaletteEditor();
+            
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -44,12 +71,19 @@ namespace ColorPaletteChangerForThermalImaging
         private void btnLoad_Click(object sender, EventArgs e)
         {
             LoadedImg = ImageLoad(pbImage);
-            var img = Editor.Edit(LoadedImg, ColorPalette);
-            pbImage.Image = img;
+            if (LoadedImg != null && ColorPalette != null)
+            {
+                var img = Editor.Edit(LoadedImg, ColorPalette);
+                pbImage.Image = img;
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (pbImage.Image == null)
+            {
+                return;
+            }
             ImageSave(pbImage);
         }
 

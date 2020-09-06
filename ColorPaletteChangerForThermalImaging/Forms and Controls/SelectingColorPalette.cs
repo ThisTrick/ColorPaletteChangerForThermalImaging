@@ -66,7 +66,7 @@ namespace ColorPaletteChangerForThermalImaging
         {
             List<ColorPalette> colorPalettes = new List<ColorPalette>();
 
-            var images = GetImages(path);
+            var images = GetImages();
             var x = 0;
             var y = 0;
             foreach (var img in images)
@@ -98,7 +98,7 @@ namespace ColorPaletteChangerForThermalImaging
             return colPalette;
         }
 
-        private List<Bitmap> GetImages(string path)
+        private List<Bitmap> GetImages()
         {
             var images = new List<Bitmap>();
             var assembly = Assembly.GetExecutingAssembly();
