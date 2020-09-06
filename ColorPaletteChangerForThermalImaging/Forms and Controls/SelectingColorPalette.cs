@@ -120,5 +120,12 @@ namespace ColorPaletteChangerForThermalImaging
             return images;
         }
 
+        private void btnAddNewPalette_Click(object sender, EventArgs e)
+        {
+            using (var addPaletteForm = new NewColorPaletteAdder())
+            {
+                addPaletteForm.ShowDialog();
+            }
+        }
     }
 }
