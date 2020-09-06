@@ -32,9 +32,9 @@
             this.pButton = new System.Windows.Forms.Panel();
             this.btnAdd = new System.Windows.Forms.Button();
             this.pMain = new System.Windows.Forms.Panel();
+            this.pColors = new System.Windows.Forms.Panel();
             this.btnAddColor = new System.Windows.Forms.Button();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
-            this.pColors = new System.Windows.Forms.Panel();
             this.pButton.SuspendLayout();
             this.pMain.SuspendLayout();
             this.SuspendLayout();
@@ -61,7 +61,7 @@
             this.pButton.Controls.Add(this.btnClose);
             this.pButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.pButton.Location = new System.Drawing.Point(0, 0);
-            this.pButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.pButton.Margin = new System.Windows.Forms.Padding(6);
             this.pButton.Name = "pButton";
             this.pButton.Size = new System.Drawing.Size(550, 61);
             this.pButton.TabIndex = 2;
@@ -88,10 +88,18 @@
             this.pMain.Controls.Add(this.btnAddColor);
             this.pMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pMain.Location = new System.Drawing.Point(0, 61);
-            this.pMain.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.pMain.Margin = new System.Windows.Forms.Padding(6);
             this.pMain.Name = "pMain";
             this.pMain.Size = new System.Drawing.Size(550, 439);
             this.pMain.TabIndex = 3;
+            // 
+            // pColors
+            // 
+            this.pColors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pColors.Location = new System.Drawing.Point(0, 0);
+            this.pColors.Name = "pColors";
+            this.pColors.Size = new System.Drawing.Size(550, 380);
+            this.pColors.TabIndex = 3;
             // 
             // btnAddColor
             // 
@@ -109,14 +117,6 @@
             this.btnAddColor.UseVisualStyleBackColor = true;
             this.btnAddColor.Click += new System.EventHandler(this.btnAddColor_Click);
             // 
-            // pColors
-            // 
-            this.pColors.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pColors.Location = new System.Drawing.Point(0, 0);
-            this.pColors.Name = "pColors";
-            this.pColors.Size = new System.Drawing.Size(550, 380);
-            this.pColors.TabIndex = 3;
-            // 
             // NewColorPaletteAdder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 33F);
@@ -127,11 +127,12 @@
             this.Controls.Add(this.pButton);
             this.Font = new System.Drawing.Font("Rockwell", 16.2F, System.Drawing.FontStyle.Bold);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "NewColorPaletteAdder";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NewColorPaletteAdder";
             this.Load += new System.EventHandler(this.NewColorPaletteAdder_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NewColorPaletteAdder_MouseDown);
             this.pButton.ResumeLayout(false);
             this.pMain.ResumeLayout(false);
             this.ResumeLayout(false);
