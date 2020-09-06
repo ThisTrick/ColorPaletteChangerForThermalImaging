@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using ColorPaletteChangerForThermalImaging.Logic;
 
 namespace ColorPaletteChangerForThermalImaging
 {
@@ -26,7 +27,9 @@ namespace ColorPaletteChangerForThermalImaging
         }
         #endregion
 
+        private ColorPaletteCreator _paletteCreator;
         private ColorPalette _selectedPalette;
+        private const string ResourcesName = "ColorPaletteChangerForThermalImaging.Properties.Resources.resources";
         public SelectingColorPalette()
         {
             InitializeComponent();
@@ -41,6 +44,7 @@ namespace ColorPaletteChangerForThermalImaging
         private void SelectingColorPalette_Load(object sender, EventArgs e)
         {
             InitColorPalettes("TestImage");
+            _paletteCreator = new ColorPaletteCreator();
         }
 
         private void ColorPalette_Click(object sender, EventArgs e)
@@ -102,8 +106,7 @@ namespace ColorPaletteChangerForThermalImaging
         {
             var images = new List<Bitmap>();
             var assembly = Assembly.GetExecutingAssembly();
-            var resName = "ColorPaletteChangerForThermalImaging.Properties.Resources.resources";
-            using (var resStream = assembly.GetManifestResourceStream(resName))
+            using (var resStream = assembly.GetManifestResourceStream(ResourcesName))
             using (var resReader = new ResourceReader(resStream))
             {
                 var dict = resReader.GetEnumerator();
@@ -124,7 +127,25 @@ namespace ColorPaletteChangerForThermalImaging
         {
             using (var addPaletteForm = new NewColorPaletteAdder())
             {
-                addPaletteForm.ShowDialog();
+                if (addPaletteForm.ShowDialog() == DialogResult.OK)
+                {
+                    if (addPaletteForm.Tag is List<Color> colors)
+                    {
+                        var colorPaletteImg = _paletteCreator.Create(colors.ToArray());
+                        
+                    }
+                }
+
+            }
+        }
+        private void AddPaletteToResources(Bitmap img, string name)
+        {
+            var images = new List<Bitmap>();
+            var assembly = Assembly.GetExecutingAssembly();
+            using (var resStream = assembly.GetManifestResourceStream(ResourcesName))
+            using (var resWriter = new ResourceWriter(resStream))
+            {
+                resWriter.AddResource(,);
             }
         }
     }
