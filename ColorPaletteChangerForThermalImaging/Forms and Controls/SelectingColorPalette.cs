@@ -1,17 +1,14 @@
-﻿using System;
+﻿using ColorPaletteChangerForThermalImaging.Logic;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Reflection;
-using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using ColorPaletteChangerForThermalImaging.Logic;
 
 namespace ColorPaletteChangerForThermalImaging
 {
-    
+
     public partial class SelectingColorPalette : Form
     {
         #region Перемещение формы
@@ -150,7 +147,7 @@ namespace ColorPaletteChangerForThermalImaging
             var fullPath = Path.Combine(appPath, imgPath);
             img.Save(fullPath);
         }
-            
+
     }
 }
 
