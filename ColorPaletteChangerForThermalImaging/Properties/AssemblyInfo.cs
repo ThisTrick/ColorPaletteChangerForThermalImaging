@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // набора атрибутов. Измените значения этих атрибутов для изменения сведений,
 // связанных со сборкой.
 [assembly: AssemblyTitle("ColorPaletteChangerForThermalImaging")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Color palette changer for Thermal Imaging.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ThisTrick (d.storozhyk)")]
 [assembly: AssemblyProduct("ColorPaletteChangerForThermalImaging")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCopyright("ThisTrick (d.storozhyk) ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
