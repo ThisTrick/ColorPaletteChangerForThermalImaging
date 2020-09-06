@@ -60,7 +60,7 @@ namespace ColorPaletteChangerForThermalImaging
         private void MainForm_Load(object sender, EventArgs e)
         {
             Editor = new ColorPaletteEditor();
-            
+            ColorPalette = Properties.Resources.White_Hot;
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -95,6 +95,10 @@ namespace ColorPaletteChangerForThermalImaging
                 if (dialogResult == DialogResult.OK)
                 {
                     var bitmapColorPalette = selectingColor.Tag as Bitmap;
+                    if (bitmapColorPalette == ColorPalette)
+                    {
+                        return;
+                    }
                     if (bitmapColorPalette != null)
                     {
                         ColorPalette = bitmapColorPalette;
