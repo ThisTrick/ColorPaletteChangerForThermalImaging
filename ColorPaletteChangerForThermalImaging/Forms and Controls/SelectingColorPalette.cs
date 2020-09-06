@@ -1,13 +1,9 @@
-﻿using System;
+﻿using ColorPaletteChangerForThermalImaging.Logic;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ColorPaletteChangerForThermalImaging
@@ -29,6 +25,8 @@ namespace ColorPaletteChangerForThermalImaging
         }
         #endregion
 
+        private const string ResourcesPash = "ColorPalettes";
+        private ColorPaletteCreator _paletteCreator;
         private ColorPalette _selectedPalette;
         public SelectingColorPalette()
         {
@@ -43,7 +41,9 @@ namespace ColorPaletteChangerForThermalImaging
 
         private void SelectingColorPalette_Load(object sender, EventArgs e)
         {
-            InitColorPalettes("TestImage");
+
+            _paletteCreator = new ColorPaletteCreator();
+            InitColorPalettes();
         }
 
         private void ColorPalette_Click(object sender, EventArgs e)
@@ -65,11 +65,11 @@ namespace ColorPaletteChangerForThermalImaging
             this.DialogResult = DialogResult.OK;
         }
 
-        private void InitColorPalettes(string path)
+        private void InitColorPalettes()
         {
             List<ColorPalette> colorPalettes = new List<ColorPalette>();
 
-            var images = GetImages(path);
+            var images = GetImages(ResourcesPash);
             var x = 0;
             var y = 0;
             foreach (var img in images)
@@ -82,6 +82,7 @@ namespace ColorPaletteChangerForThermalImaging
                 colorPalettes.Add(CreateColorPalette(img, new Point(x, y)));
                 x++;
             }
+            this.pColorPalettes.Controls.Clear();
             this.pColorPalettes.Controls.AddRange(colorPalettes.ToArray());
         }
 
@@ -100,7 +101,7 @@ namespace ColorPaletteChangerForThermalImaging
             colPalette.DoubleClick += ColorPalette_DoubleClick;
             return colPalette;
         }
-        
+
         private List<Bitmap> GetImages(string path)
         {
             var images = new List<Bitmap>();
@@ -116,5 +117,37 @@ namespace ColorPaletteChangerForThermalImaging
             return images;
         }
 
+        private void btnAddNewPalette_Click(object sender, EventArgs e)
+        {
+            using (var addPaletteForm = new NewColorPaletteAdder())
+            {
+                if (addPaletteForm.ShowDialog() == DialogResult.OK)
+                {
+                    if (addPaletteForm.Tag is List<Color> colors)
+                    {
+                        var colorPaletteImg = _paletteCreator.Create(colors.ToArray());
+                        var name = "";
+                        using (var writeName = new WriteColorPaletteName())
+                        {
+                            if (writeName.ShowDialog() == DialogResult.OK)
+                            {
+                                name = writeName.Tag as string;
+                            }
+                        }
+                        AddPaletteToResources(colorPaletteImg, name, ResourcesPash);
+                    }
+                }
+            }
+            InitColorPalettes();
+        }
+        private void AddPaletteToResources(Bitmap img, string name, string path)
+        {
+            var appPath = Application.StartupPath;
+            var imgPath = $"{path}\\{name}.png";
+            var fullPath = Path.Combine(appPath, imgPath);
+            img.Save(fullPath);
+        }
+
     }
 }
+
