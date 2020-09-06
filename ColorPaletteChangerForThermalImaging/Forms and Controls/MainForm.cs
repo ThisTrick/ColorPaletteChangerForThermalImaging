@@ -1,13 +1,7 @@
 ﻿using ColorPaletteChangerForThermalImaging.Logic;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ColorPaletteChangerForThermalImaging
@@ -28,20 +22,45 @@ namespace ColorPaletteChangerForThermalImaging
 
         #endregion
 
-        Bitmap LoadedImg;
+        private Bitmap _colorPalette;
+        private Bitmap _loadedImg;
+        private Bitmap LoadedImg 
+        { 
+            get => _loadedImg;
+            set 
+            {
+                if (value == null && value == _loadedImg)
+                {
+                    return;
+                }
+                _loadedImg = value;
+                pbImage.Image = _loadedImg;
+            }
+        }
+        private Bitmap ColorPalette 
+        {
+            get => _colorPalette;
+            set
+            {
+                if (value == null && value == _colorPalette)
+                {
+                    return;
+                }
+                _colorPalette = value;
+                pbColorPalette.Image = _colorPalette;
+            }
+        }
+        private ColorPaletteEditor Editor;
+
         public MainForm()
         {
             InitializeComponent();
         }
 
-        private void TestColorPaletteCreator()
+        private void MainForm_Load(object sender, EventArgs e)
         {
-            ColorPaletteCreator creator = new ColorPaletteCreator();
-            var colorPalette = creator.CreateAndSave("TestImage\\test.png", Color.White, Color.Black);
-            pbColorPalette.Image = colorPalette;
-            ColorPaletteEditor editor = new ColorPaletteEditor();
-            var img = new Bitmap("testImage\\testImg1.png");
-            pbImage.Image = editor.Edit(img, colorPalette);
+            Editor = new ColorPaletteEditor();
+            ColorPalette = Properties.Resources.White_Hot;
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -52,10 +71,19 @@ namespace ColorPaletteChangerForThermalImaging
         private void btnLoad_Click(object sender, EventArgs e)
         {
             LoadedImg = ImageLoad(pbImage);
+            if (LoadedImg != null && ColorPalette != null)
+            {
+                var img = Editor.Edit(LoadedImg, ColorPalette);
+                pbImage.Image = img;
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (pbImage.Image == null)
+            {
+                return;
+            }
             ImageSave(pbImage);
         }
 
@@ -67,12 +95,21 @@ namespace ColorPaletteChangerForThermalImaging
                 if (dialogResult == DialogResult.OK)
                 {
                     var bitmapColorPalette = selectingColor.Tag as Bitmap;
-                    pbColorPalette.Image = bitmapColorPalette ?? pbColorPalette.Image;
+                    if (bitmapColorPalette == ColorPalette)
+                    {
+                        return;
+                    }
+                    if (bitmapColorPalette != null)
+                    {
+                        ColorPalette = bitmapColorPalette;
+                        if (LoadedImg != null)
+                        {
+                            pbImage.Image = Editor.Edit(LoadedImg, ColorPalette);
+                        }
+                    }
                 }
-
             }
         }
-
 
         Bitmap ImageLoad(PictureBox pictureBox)
         {

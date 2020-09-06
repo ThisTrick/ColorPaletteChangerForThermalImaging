@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ColorPaletteChangerForThermalImaging
@@ -69,7 +66,7 @@ namespace ColorPaletteChangerForThermalImaging
         {
             List<ColorPalette> colorPalettes = new List<ColorPalette>();
 
-            var images = GetImages(path);
+            var images = GetImages();
             var x = 0;
             var y = 0;
             foreach (var img in images)
@@ -100,18 +97,25 @@ namespace ColorPaletteChangerForThermalImaging
             colPalette.DoubleClick += ColorPalette_DoubleClick;
             return colPalette;
         }
-        
-        private List<Bitmap> GetImages(string path)
+
+        private List<Bitmap> GetImages()
         {
             var images = new List<Bitmap>();
-            var appPath = Application.StartupPath;
-            var fullPath = Path.Combine(appPath, path);
-            var imgPaths = Directory.GetFiles(fullPath);
-
-            foreach (var imgPath in imgPaths)
+            var assembly = Assembly.GetExecutingAssembly();
+            var resName = "ColorPaletteChangerForThermalImaging.Properties.Resources.resources";
+            using (var resStream = assembly.GetManifestResourceStream(resName))
+            using (var resReader = new ResourceReader(resStream))
             {
-                var imgName = Path.GetFileNameWithoutExtension(imgPath);
-                images.Add(new Bitmap(imgPath) { Tag = imgName });
+                var dict = resReader.GetEnumerator();
+                while (dict.MoveNext())
+                {
+                    if (typeof(Bitmap) == dict.Value.GetType())
+                    {
+                        var img = (Bitmap)dict.Value;
+                        img.Tag = dict.Key;
+                        images.Add(img);
+                    }
+                }
             }
             return images;
         }
