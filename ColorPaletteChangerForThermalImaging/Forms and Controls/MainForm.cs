@@ -97,7 +97,6 @@ namespace ColorPaletteChangerForThermalImaging
                     var bitmapColorPalette = selectingColor.Tag as Bitmap;
                     if (bitmapColorPalette != null)
                     {
-                        pbColorPalette.Image = bitmapColorPalette;
                         ColorPalette = bitmapColorPalette;
                         if (LoadedImg != null)
                         {
@@ -107,7 +106,6 @@ namespace ColorPaletteChangerForThermalImaging
                 }
             }
         }
-
 
         Bitmap ImageLoad(PictureBox pictureBox)
         {
@@ -171,7 +169,5 @@ namespace ColorPaletteChangerForThermalImaging
                 }
             }
         }
-
-
     }
 }
