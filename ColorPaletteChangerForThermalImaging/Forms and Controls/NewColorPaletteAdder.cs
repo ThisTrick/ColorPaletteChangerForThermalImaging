@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ColorPaletteChangerForThermalImaging
@@ -24,30 +19,48 @@ namespace ColorPaletteChangerForThermalImaging
         }
         private void btnClose_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             var controls = pColors.Controls;
-            foreach(Control pColor in controls)
+            var colors = new List<Color>();
+            foreach (Control pColor in controls)
             {
-                pColor.BackColor = Color.White;
+                if (pColor.Controls.Count < 0)
+                {
+                    colors.Add(pColor.BackColor);
+                }
             }
-            //btnClose_Click(sender, e);
+            this.Tag = colors;
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
 
         private void btnAddColor_Click(object sender, EventArgs e)
         {
-
+            pColors.Controls.Add(NewColorPanel());
+            var countColors = pColors.Controls.Count;
+            var size = new Size(pColors.Width, pColors.Height / countColors);
+            foreach (Control control in pColors.Controls)
+            {
+                control.Size = size;
+            }
         }
 
         private Panel NewColorPanel(Size size)
         {
-            var panel = new Panel();
+            var panel = NewColorPanel();
             panel.Width = size.Width;
             panel.Height = size.Height;
-            panel.Dock = DockStyle.Top;
+            return panel;
+        }
+        private Panel NewColorPanel()
+        {
+            var panel = new Panel();
+            panel.Dock = DockStyle.Bottom;
             panel.BorderStyle = BorderStyle.FixedSingle;
             var label = new Label();
             label.Font = this.Font;
