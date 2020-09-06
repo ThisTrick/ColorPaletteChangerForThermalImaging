@@ -63,16 +63,6 @@ namespace ColorPaletteChangerForThermalImaging.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Black_Hot {
-            get {
-                object obj = ResourceManager.GetObject("Black_Hot", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap White_Hot {
             get {
                 object obj = ResourceManager.GetObject("White_Hot", resourceCulture);

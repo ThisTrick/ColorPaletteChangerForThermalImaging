@@ -1,4 +1,4 @@
-﻿namespace ColorPaletteChangerForThermalImaging.Forms_and_Controls
+﻿namespace ColorPaletteChangerForThermalImaging
 {
     partial class WriteColorPaletteName
     {
@@ -41,12 +41,15 @@
             // 
             // btnOK
             // 
+            this.btnOK.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.btnOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Honeydew;
+            this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOK.Location = new System.Drawing.Point(57, 99);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(115, 39);
             this.btnOK.TabIndex = 1;
             this.btnOK.Text = "OK";
-            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.UseVisualStyleBackColor = false;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // WriteColorPaletteName

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace ColorPaletteChangerForThermalImaging.Forms_and_Controls
+namespace ColorPaletteChangerForThermalImaging
 {
     public partial class WriteColorPaletteName : Form
     {
@@ -19,6 +19,8 @@ namespace ColorPaletteChangerForThermalImaging.Forms_and_Controls
                 return;
             }
             this.Tag = name;
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }

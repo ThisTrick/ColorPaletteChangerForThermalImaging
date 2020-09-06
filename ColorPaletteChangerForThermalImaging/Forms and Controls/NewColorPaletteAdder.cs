@@ -29,7 +29,7 @@ namespace ColorPaletteChangerForThermalImaging
             var colors = new List<Color>();
             foreach (Control pColor in controls)
             {
-                if (pColor.Controls.Count < 0)
+                if (pColor.Controls.Count <= 0)
                 {
                     colors.Add(pColor.BackColor);
                 }

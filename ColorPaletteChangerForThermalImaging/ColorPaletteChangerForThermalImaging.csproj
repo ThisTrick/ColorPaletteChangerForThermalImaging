@@ -119,10 +119,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Black Hot.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\White Hot.png" />
+    <None Include="Resources\White Hot.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
