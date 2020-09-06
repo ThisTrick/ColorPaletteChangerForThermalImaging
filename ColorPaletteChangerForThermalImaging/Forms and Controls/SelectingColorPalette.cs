@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -99,14 +101,21 @@ namespace ColorPaletteChangerForThermalImaging
         private List<Bitmap> GetImages(string path)
         {
             var images = new List<Bitmap>();
-            var appPath = Application.StartupPath;
-            var fullPath = Path.Combine(appPath, path);
-            var imgPaths = Directory.GetFiles(fullPath);
-
-            foreach (var imgPath in imgPaths)
+            var assembly = Assembly.GetExecutingAssembly();
+            var resName = "ColorPaletteChangerForThermalImaging.Properties.Resources.resources";
+            using (var resStream = assembly.GetManifestResourceStream(resName))
+            using (var resReader = new ResourceReader(resStream))
             {
-                var imgName = Path.GetFileNameWithoutExtension(imgPath);
-                images.Add(new Bitmap(imgPath) { Tag = imgName });
+                var dict = resReader.GetEnumerator();
+                while (dict.MoveNext())
+                {
+                    if (typeof(Bitmap) == dict.Value.GetType())
+                    {
+                        var img = (Bitmap)dict.Value;
+                        img.Tag = dict.Key;
+                        images.Add(img);
+                    }
+                }
             }
             return images;
         }
