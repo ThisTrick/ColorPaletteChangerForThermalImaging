@@ -69,6 +69,10 @@ namespace ColorPaletteChangerForThermalImaging.Logic
             int index = 1;
             for (float position = step; position < 1.0f; position += step)
             {
+                if (index >= length)
+                {
+                    break;
+                }
                 positions[index] = position;
                 index++;
             }

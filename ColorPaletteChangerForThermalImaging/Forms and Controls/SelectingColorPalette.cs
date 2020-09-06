@@ -1,9 +1,8 @@
-﻿using System;
+﻿using ColorPaletteChangerForThermalImaging.Logic;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Reflection;
-using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -26,6 +25,8 @@ namespace ColorPaletteChangerForThermalImaging
         }
         #endregion
 
+        private const string ResourcesPash = "ColorPalettes";
+        private ColorPaletteCreator _paletteCreator;
         private ColorPalette _selectedPalette;
         public SelectingColorPalette()
         {
@@ -40,7 +41,9 @@ namespace ColorPaletteChangerForThermalImaging
 
         private void SelectingColorPalette_Load(object sender, EventArgs e)
         {
-            InitColorPalettes("TestImage");
+
+            _paletteCreator = new ColorPaletteCreator();
+            InitColorPalettes();
         }
 
         private void ColorPalette_Click(object sender, EventArgs e)
@@ -62,11 +65,11 @@ namespace ColorPaletteChangerForThermalImaging
             this.DialogResult = DialogResult.OK;
         }
 
-        private void InitColorPalettes(string path)
+        private void InitColorPalettes()
         {
             List<ColorPalette> colorPalettes = new List<ColorPalette>();
 
-            var images = GetImages();
+            var images = GetImages(ResourcesPash);
             var x = 0;
             var y = 0;
             foreach (var img in images)
@@ -79,6 +82,7 @@ namespace ColorPaletteChangerForThermalImaging
                 colorPalettes.Add(CreateColorPalette(img, new Point(x, y)));
                 x++;
             }
+            this.pColorPalettes.Controls.Clear();
             this.pColorPalettes.Controls.AddRange(colorPalettes.ToArray());
         }
 
@@ -98,27 +102,52 @@ namespace ColorPaletteChangerForThermalImaging
             return colPalette;
         }
 
-        private List<Bitmap> GetImages()
+        private List<Bitmap> GetImages(string path)
         {
             var images = new List<Bitmap>();
-            var assembly = Assembly.GetExecutingAssembly();
-            var resName = "ColorPaletteChangerForThermalImaging.Properties.Resources.resources";
-            using (var resStream = assembly.GetManifestResourceStream(resName))
-            using (var resReader = new ResourceReader(resStream))
+            var appPath = Application.StartupPath;
+            var fullPath = Path.Combine(appPath, path);
+            var imgPaths = Directory.GetFiles(fullPath);
+
+            foreach (var imgPath in imgPaths)
             {
-                var dict = resReader.GetEnumerator();
-                while (dict.MoveNext())
-                {
-                    if (typeof(Bitmap) == dict.Value.GetType())
-                    {
-                        var img = (Bitmap)dict.Value;
-                        img.Tag = dict.Key;
-                        images.Add(img);
-                    }
-                }
+                var imgName = Path.GetFileNameWithoutExtension(imgPath);
+                images.Add(new Bitmap(imgPath) { Tag = imgName });
             }
             return images;
         }
 
+        private void btnAddNewPalette_Click(object sender, EventArgs e)
+        {
+            using (var addPaletteForm = new NewColorPaletteAdder())
+            {
+                if (addPaletteForm.ShowDialog() == DialogResult.OK)
+                {
+                    if (addPaletteForm.Tag is List<Color> colors)
+                    {
+                        var colorPaletteImg = _paletteCreator.Create(colors.ToArray());
+                        var name = "";
+                        using (var writeName = new WriteColorPaletteName())
+                        {
+                            if (writeName.ShowDialog() == DialogResult.OK)
+                            {
+                                name = writeName.Tag as string;
+                            }
+                        }
+                        AddPaletteToResources(colorPaletteImg, name, ResourcesPash);
+                    }
+                }
+            }
+            InitColorPalettes();
+        }
+        private void AddPaletteToResources(Bitmap img, string name, string path)
+        {
+            var appPath = Application.StartupPath;
+            var imgPath = $"{path}\\{name}.png";
+            var fullPath = Path.Combine(appPath, imgPath);
+            img.Save(fullPath);
+        }
+
     }
 }
+

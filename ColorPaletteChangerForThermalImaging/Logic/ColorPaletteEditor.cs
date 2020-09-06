@@ -14,7 +14,7 @@ namespace ColorPaletteChangerForThermalImaging.Logic
                 for (int i = 0; i < palette.Entries.Length; i++)
                 {
                     var pixel = (Color)palette.Entries.GetValue(i);
-                    var intensity = (int)(0.3 * pixel.R + 0.59 * pixel.G + 0.11 * pixel.B);
+                    var intensity = (int)(0.59 * pixel.R + 0.3 * pixel.G + 0.11 * pixel.B);
                     var color = standard[intensity];
                     palette.Entries.SetValue(color, i);
                 }
@@ -43,7 +43,7 @@ namespace ColorPaletteChangerForThermalImaging.Logic
             var standard = new Color[colorPalette.Height];
             for (int y = 0; y < colorPalette.Height; y++)
             {
-                standard[y] = colorPalette.GetPixel(0, y);
+                standard[y] = colorPalette.GetPixel(0, colorPalette.Height - 1 - y);
             }
             return standard;
         }
